@@ -12,6 +12,15 @@ class TweetsController < ApplicationController
     Tweet.create(tweet_params)
   end
 
+  def edit
+    @edit_tweet = Tweet.find(params[:id])
+  end
+  
+  def update
+    update_tweet = Tweet.find(params[:id])
+    update_tweet.update(tweet_params)
+  end
+  
   def destroy
     delete_tweet = Tweet.find(params[:id])
     delete_tweet.destroy
