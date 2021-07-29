@@ -1,11 +1,11 @@
 class TweetsController < ApplicationController
   
   def index 
-    @tweets = Tweet.all
+    @all_tweets = Tweet.all
   end
 
   def new
-    @tweet = Tweet.new
+    @new_tweet = Tweet.new
   end 
 
   def create
@@ -18,9 +18,13 @@ class TweetsController < ApplicationController
   
   def update
     update_tweet = Tweet.find(params[:id])
-    update_tweet.update(tweet_params)
+    update_tweet.update(permit_tweet_params)
   end
   
+  def show
+    @show_tweet = Tweet.find(params[:id])
+  end
+
   def destroy
     delete_tweet = Tweet.find(params[:id])
     delete_tweet.destroy
@@ -28,7 +32,8 @@ class TweetsController < ApplicationController
 
 
   private
-  def tweet_params
+  def permit_tweet_params
     params.require(:tweet).permit(:name, :text, :image)
   end
+
 end
